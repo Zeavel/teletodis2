@@ -122,5 +122,5 @@ client2.channels.get(chl).createWebhook(client2.channels.get(chl).name)
 
 
 
-client2.login(BOTK)
+client2.login(process.env.BOTK)
 
