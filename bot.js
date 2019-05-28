@@ -32,7 +32,7 @@ function getRandomInt(min, max)
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot2 = new TelegramBot(process.env.BOT2, {polling: true} );
-{
+bot2.on('channel_post', (msg) => {
    var ph = msg.photo
    console.log(msg.photo)
    client2.channels.get("582186367413649419").fetchMessage("582187128960843786")
