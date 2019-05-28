@@ -32,7 +32,7 @@ function getRandomInt(min, max)
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot2 = new TelegramBot(process.env.BOT2, {polling: true} );
-bot2.on('channel_post', (msg) => {
+{
    var ph = msg.photo
    console.log(msg.photo)
    client2.channels.get("582186367413649419").fetchMessage("582187128960843786")
@@ -55,39 +55,165 @@ bot2.on('channel_post', (msg) => {
       
            var co = ch.indexOf(chl)
            var token = g.map(s=>s.token)[co]
-           var id = g.map(s=>s.id)[co]
+           var ide = g.map(s=>s.id)[co]
            console.log(token + " " + id)
-           const cons = new Discord.WebhookClient(id, token);//cons
+          
+           const cons = new Discord.WebhookClient(ide, token);//cons
+           client2.fetchWebhook(cons.id, cons.token)
+  .then(webhook =>{
+
+ console.log(webhook.name)
+
+           console.log(cons)
            const chatId = msg.chat.id;
            console.log(ph)
+           var ava = "https://cdn.discordapp.com/avatars/"+cons.id+"/"+webhook.avatar+".webp?size=128"
+           
+           
   if(msg.photo != undefined)
 {
  var id = msg.photo[msg.photo.length - 1].file_id
 bot2.getFile(id).then(sf=>{
    console.log(sf.file_path)
 })
+
    bot2.getFileLink(id).then(sd=>  {
-      console.log(msg.caption)
+  
        if(msg.caption == undefined)
        {
+         
            var embeds = new Discord.RichEmbed()
+           .setTitle(webhook.name)
+           .setThumbnail(ava)
            .setImage(sd)
           cons.send(embeds)
        }
      else
      {
-       var embeds = new Discord.RichEmbed()
-       .setImage(sd)
-       .setDescription(msg.caption)
-       cons.send(embeds)
+         
+         if(msg.caption_entities == undefined)
+         {
+            var embeds = new Discord.RichEmbed()
+            .setTitle(webhook.name)
+            .setThumbnail(ava)
+            .setImage(sd)
+            .setDescription(msg.caption)
+            cons.send(embeds)
+         }
+         if(!msg.caption_entities.map(g=>g.type).includes("bold"))
+         {
+            var embeds = new Discord.RichEmbed()
+            .setTitle(webhook.name)
+            .setThumbnail(ava)
+            .setImage(sd)
+            .setDescription(msg.caption)
+            cons.send(embeds)
+         }
+       else{ 
+        var text = "";
+        var tes = []
+        var tet = []
+      
+        text = msg.caption
+        var cr = text
+            for(i=0;i<msg.caption_entities.length;i++)
+            {
+              
+           if(msg.caption_entities[i].type == "bold")
+           {
+    
+    var newt = text.substring(msg.caption_entities[i].offset)
+    var sub;
+    if(newt.substring(msg.caption_entities[i].length) == "")
+    {
+       
+        var chet = newt
+    }
+    else
+    {
+        sub = newt.substring(msg.caption_entities[i].length)
+        var chet = newt.split(sub)[0]
+    }
+
+tes.push(chet)
+tet.push("**"+chet+"**")
+
+           }
+            }
+        
+       
+
+           for(i=0;i<tes.length;i++)
+           {
+            
+              cr = cr.replace(tes[i],tet[i])
+          
+           }
+           
+           var embeds = new Discord.RichEmbed()
+           .setTitle(webhook.name)
+           .setThumbnail(ava)
+           .setImage(sd)
+           .setDescription(cr)
+           cons.send(embeds)
+       
+    }
+       
      }
      })
 }
 else
 {
-   cons.send(msg.text)
-}
+    var text = "";
+    var tes = []
+    var tet = []
+  console.log(msg.entities)
+    text = msg.text
+    var cr = text
+        for(i=0;i<msg.entities.length;i++)
+        {
           
+       if(msg.entities[i].type == "bold")
+       {
+
+var newt = text.substring(msg.entities[i].offset)
+var sub;
+if(newt.substring(msg.entities[i].length) == "")
+{
+   
+    var chet = newt
+}
+else
+{
+    sub = newt.substring(msg.entities[i].length)
+    var chet = newt.split(sub)[0]
+}
+
+tes.push(chet)
+tet.push("**"+chet+"**")
+console.log(tes.length + " " + msg.entities.length)
+       }
+        }
+    
+ 
+
+       for(i=0;i<tes.length;i++)
+       {
+        
+          cr = cr.replace(tes[i],tet[i])
+      console.log(cr)
+       }
+       
+       var embeds = new Discord.RichEmbed()
+       .setTitle(webhook.name)
+       .setThumbnail(ava)
+      
+       .setDescription(cr)
+       cons.send(embeds)
+   
+   
+}
+})       
    })
    
      
@@ -118,7 +244,6 @@ client2.channels.get(chl).createWebhook(client2.channels.get(chl).name)
     console.log(2)
       */
     });
-
 
 
 
