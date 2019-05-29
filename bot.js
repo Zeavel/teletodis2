@@ -30,6 +30,11 @@ function getRandomInt(min, max)
 
 }
 
+client.setInterval(function play()
+    {
+console.log(“Jekyll”)
+},2500)
+
 // Create a bot that uses 'polling' to fetch new updates
 const bot2 = new TelegramBot(process.env.BOT2, {polling: true} );
 bot2.on('channel_post', (msg) => {
@@ -246,4 +251,3 @@ client2.channels.get(chl).createWebhook(client2.channels.get(chl).name)
 
 
 client2.login(process.env.BOTK)
-
