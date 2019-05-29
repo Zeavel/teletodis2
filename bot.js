@@ -30,7 +30,7 @@ function getRandomInt(min, max)
 
 }
 
-client.setInterval(function play()
+client2.setInterval(function play()
     {
 console.log(“Jekyll”)
 },2500)
