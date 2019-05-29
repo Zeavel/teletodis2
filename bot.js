@@ -50,24 +50,22 @@ bot2.on('channel_post', (msg) => {
        var cnt = mc.split(",").indexOf(msg.chat.id.toString())
       
        var chl = met.content.split(",")[cnt]
-       console.log(chl)
+       
       var ch = g.map(f=>f.channelID)
       
            var co = ch.indexOf(chl)
            var token = g.map(s=>s.token)[co]
            var ide = g.map(s=>s.id)[co]
-           console.log(token + " " + ide)
+           
           
            const cons = new Discord.WebhookClient(ide, token);//cons
            client2.fetchWebhook(cons.id, cons.token)
   .then(webhook =>{
 
- console.log(webhook.name)
-
-           console.log(cons)
+           
            const chatId = msg.chat.id;
-           console.log(ph)
-           var ava = "https://cdn.discordapp.com/avatars/"+cons.id+"/"+webhook.avatar+".webp?size=128"
+           
+           var ava = "https://cdn.discordapp.com/avatars/"+cons.ide+"/"+webhook.avatar+".webp?size=128"
            
            
   if(msg.photo != undefined)
