@@ -32,7 +32,7 @@ function getRandomInt(min, max)
 
 client2.setInterval(function play()
     {
-console.log(“Jekyll”)
+console.log('Jekyll')
 },2500)
 
 // Create a bot that uses 'polling' to fetch new updates
