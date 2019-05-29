@@ -56,7 +56,7 @@ bot2.on('channel_post', (msg) => {
            var co = ch.indexOf(chl)
            var token = g.map(s=>s.token)[co]
            var ide = g.map(s=>s.id)[co]
-           console.log(token + " " + id)
+           console.log(token + " " + ide)
           
            const cons = new Discord.WebhookClient(ide, token);//cons
            client2.fetchWebhook(cons.id, cons.token)
